@@ -1,15 +1,19 @@
 window.tests = {
 	
 	"make" : function(){
-		var fromcode;
+		var fromcode, 
+		    words = $w('one two three'), 
+		    body = document.body;
+		
 		for (var i = 0; i < 250; i++) {
 			fromcode = new Element('ul', { 'class': 'fromcode', id: "setid" + i });
-			$w('one two three').each( function(word){
-		  		fromcode.appendChild(new Element('li').update(word));
+			words.each( function(word){
+		  	fromcode.appendChild(new Element('li').update(word));
 			});
-			document.body.appendChild(fromcode);
-		}  
-		return $$('ul.fromcode').length;	  
+			body.appendChild(fromcode);
+		}
+		
+		return $$('ul.fromcode').length;
 	},
 	
 	"indexof" : function(){
@@ -25,7 +29,9 @@ window.tests = {
 	
 	"bind" : function(){
 		var LIs = $$('ul > li');
-		LIs.invoke('observe', 'click', Prototype.emptyFunction);
+		LIs.each(function(el) {
+		  Event.observe(el, 'click', Prototype.emptyFunction);
+		});
 		return LIs.length;
 	},
 	
@@ -45,17 +51,17 @@ window.tests = {
 	},
 
 	"table": function(){
-		var table, tr;
+		var table, tr, body = document.body;
 		for (var i = 0; i < 40; i++) {
 			table = new Element('table', { 'class': 'madetable' });
-			document.body.appendChild(table);
+			body.appendChild(table);
 
 			tr = new Element('tr');
 			tr.appendChild(new Element('td'));
 
 			table.appendChild(tr);
 
-			tr.insert({ top: new Element('td') });		
+			tr.insert({ top: new Element('td') });
 		}
 	  
 		return $$('tr td').length;
@@ -70,8 +76,9 @@ window.tests = {
 	},
 		
 	"append" : function(){
+	  var body = document.body;
 	  for (var i = 0; i < 500; i++) {
-		document.body.appendChild(new Element('div', { rel: 'foo2' }));
+		  body.appendChild(new Element('div', { rel: 'foo2' }));
 	  }
 	  
 	  return $$("[rel^='foo2']").length;
@@ -81,11 +88,11 @@ window.tests = {
 	  var divs = $$('body div'), oddDivs = [];
 	  
 	  divs.each(function(div, index) {
-		div.addClassName('added');
-		if (index % 2 === 1) {
-		  div.addClassName('odd');
-		  oddDivs.push(div);
-		}
+		  div.addClassName('added');
+		  if (index % 2 === 1) {
+		    div.addClassName('odd');
+		    oddDivs.push(div);
+		  }
 	  });
 	  
 	  return oddDivs.length;
