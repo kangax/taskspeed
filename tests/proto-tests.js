@@ -127,7 +127,6 @@ window.tests = {
 	
 	"insertbefore" : function(){
 		var anchors = $$('.fromcode a');
-	  
 		anchors.each( function(anchor) {
 			anchor.insert({ before: new Element('p').update("A Link") });
 		});
@@ -138,7 +137,8 @@ window.tests = {
 		var anchors = $$(".fromcode a");
 		anchors.each( function(anchor) {
 			anchor.insert({ after: new Element('p').update("After Link") });
-		}).length;
+		});
+		return anchors.length;
 	},
 	
 	"destroy": function(){ 
