@@ -153,7 +153,7 @@ window.tests = {
 	},
 	
 	"finale": function(){
-	  $(document.body).descendants().each(Element.remove);
+	  $(document.body).update();
 	  return $$("body *").length;
 	}
 	
